@@ -1,11 +1,8 @@
-const players = ["John", "Bob", "Alice", "Poppy"];
+// Given array and object
+let players = ["Player 1", "Player 2", "Player 3"];
+let person = { name: "John", age: 25 };
 
-const person = {
-  name: "John Doe",
-  age: 80,
-};
-
-// Write your code here, make sure the name of variables is exactly same as mentioned in the problem statement
+// Creating variables
 let team = players;
 let team1 = [...players]; // Using the spread operator to create a copy of players array
 let cap1 = { ...person }; // Using the spread operator to create a copy of person object
