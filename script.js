@@ -1,19 +1,4 @@
 // Given array and object
-let players = ["Player 1", "Player 2", "Player 3"];
-let person = { name: "John", age: 25 };
-
-// Creating variables
-let team = players;
-let team1 = [...players]; // Using the spread operator to create a copy of players array
-let cap1 = { ...person }; // Using the spread operator to create a copy of person object
-
-// Assigning variables to the window object
-window.players = players;
-window.person = person;
-window.team = team;
-window.team1 = team1;
-window.cap1 = cap1;
-
 // Cypress test code
 describe("Testing Array and Object", () => {
   beforeEach(() => {
@@ -22,24 +7,37 @@ describe("Testing Array and Object", () => {
 
   it("should compare players and team arrays", () => {
     cy.window().then((window) => {
+      // Given array and object
+      let players = window.players;
+      let team = window.team;
+
       // Comparing players and team
-      cy.wrap(window.players).should("deep.equal", window.team);
+      expect(players).to.deep.equal(team);
     });
   });
 
   it("should modify players and test changes in team", () => {
     cy.window().then((window) => {
+      // Given array and object
+      let players = window.players;
+      let team = window.team;
+
       // Modifying players and testing the changes in team
-      window.players[3] = "Dhoni";
-      cy.wrap(window.players).should("deep.equal", window.team);
+      players[3] = "Dhoni";
+      expect(players).to.deep.equal(team);
     });
   });
 
   it("should modify team and test changes in players", () => {
     cy.window().then((window) => {
+      // Given array and object
+      let players = window.players;
+      let team = window.team;
+
       // Modifying team and testing the changes in players
-      window.team[3] = "Poppy";
-      cy.wrap(window.team).should("deep.equal", window.players);
+      team[3] = "Poppy";
+      expect(team).to.deep.equal(players);
     });
   });
 });
+
