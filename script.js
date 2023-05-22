@@ -1,43 +1,18 @@
-// Given array and object
-// Cypress test code
-describe("Testing Array and Object", () => {
-  beforeEach(() => {
-    cy.visit("your-app-url");
-  });
+// Given array
+const players = ['John', 'Mike', 'Sarah'];
 
-  it("should compare players and team arrays", () => {
-    cy.window().then((window) => {
-      // Given array and object
-      let players = window.players;
-      let team = window.team;
+// Given object
+const person = {
+  name: 'Alex',
+  age: 25
+};
 
-      // Comparing players and team
-      expect(players).to.deep.equal(team);
-    });
-  });
+// Copying the array using reference assignment
+const team = players;
 
-  it("should modify players and test changes in team", () => {
-    cy.window().then((window) => {
-      // Given array and object
-      let players = window.players;
-      let team = window.team;
+// Copying the array using the spread operator
+const team1 = [...players];
 
-      // Modifying players and testing the changes in team
-      players[3] = "Dhoni";
-      expect(players).to.deep.equal(team);
-    });
-  });
-
-  it("should modify team and test changes in players", () => {
-    cy.window().then((window) => {
-      // Given array and object
-      let players = window.players;
-      let team = window.team;
-
-      // Modifying team and testing the changes in players
-      team[3] = "Poppy";
-      expect(team).to.deep.equal(players);
-    });
-  });
-});
+// Copying the object using the spread operator
+const cap1 = { ...person };
 
