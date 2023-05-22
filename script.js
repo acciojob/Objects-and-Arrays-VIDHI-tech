@@ -1,18 +1,40 @@
-// Given array
-const players = ['John', 'Mike', 'Sarah'];
+// Test Case 1
+body: "() => {
+  cy.window().then(window => {
+    cy.wrap(window.players).as('originalPlayers');
+    cy.wrap(window.team).should('deep.equal', window.players);
 
-// Given object
-const person = {
-  name: 'Alex',
-  age: 25
-};
+    cy.get('@originalPlayers').then(originalPlayers => {
+      const updatedPlayers = [...originalPlayers, 'Dhoni'];
+      cy.wrap(window.players).should('deep.equal', updatedPlayers);
 
-// Copying the array using reference assignment
-const team = players;
+      window.team.push('Poppy');
+      cy.wrap(window.team).should('deep.equal', window.players);
+    });
+  });
+}"
 
-// Copying the array using the spread operator
-const team1 = [...players];
+// Test Case 2
+body: "() => {
+  cy.window().then(window => {
+    cy.wrap(window.players).then(players => {
+      cy.wrap(players).should('deep.equal', window.team1);
 
-// Copying the object using the spread operator
-const cap1 = { ...person };
+      const poppedPlayer = window.players.pop();
+      cy.wrap(window.players).should('not.deep.equal', window.team1);
+      window.players.push('Poppy');
+      cy.wrap(window.players).should('not.deep.equal', window.team1);
+    });
+  });
+}"
 
+// Test Case 3
+body: "() => {
+  cy.window().then(window => {
+    cy.wrap(window.person.name).should('eq', window.cap1.name);
+    window.person.name = 'Accio Job';
+    cy.wrap(window.person.name).should('not.eq', window.cap1.name);
+    window.cap1.age = 25;
+    cy.wrap(window.cap1.age).should('not.eq', window.person.age);
+  });
+}"
